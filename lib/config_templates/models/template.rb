@@ -14,7 +14,11 @@ module ConfigTemplates::Models
     end
 
     def destination
-      ::File.join @config.destination_path, @config.stage, @path.sub(@config.templates_path, '')
+      ::File.join(
+        @config.destination_path,
+        @config.stage.to_s,
+        @path.sub(@config.templates_path, '').sub(extension, '')
+      )
     end
 
     def validator

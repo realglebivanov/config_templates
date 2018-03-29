@@ -1,7 +1,9 @@
 module ConfigTemplates::Outputs
   class Filesystem
     def print(renderer)
-      ::File.write renderer.template.destination, renderer.result
+      destination = renderer.template.destination
+      ::FileUtils.mkdir_p ::File.dirname destination
+      ::File.write destination, renderer.result
     end
   end
 end

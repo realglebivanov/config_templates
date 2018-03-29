@@ -6,7 +6,7 @@ module ConfigTemplates::Repositories
 
     def find_all
       @find_all ||= @locator.settings.reduce({}) {
-        |result, current| result.merge ::YAML.load_file current
+        |result, current| result.merge ::YAML.load_file current, Hash.new
       }
     end
   end

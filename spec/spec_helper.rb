@@ -7,8 +7,8 @@ RSpec.configure do |spec|
       config.destination_path = 'spec/fixtures/dest'
       config.settings_path = 'spec/fixtures/settings'
       config.settings_file_basename = 'settings'
-      config.stage = :production
       config.stages = %i[production prerel staging]
+      config.stage = :production
     end
   end
 end

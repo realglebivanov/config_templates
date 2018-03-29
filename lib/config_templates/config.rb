@@ -2,13 +2,22 @@ module ConfigTemplates
   class Config
     attr_accessor :templates_path, :destination_path
     attr_accessor :settings_path, :settings_file_basename
-    attr_accessor :stage, :stages
+    attr_accessor :stages
+    attr_reader :stage
 
     def initialize
       @stages = []
       @outputs = ::ConfigTemplates::Repositories::Outputs.new
       @engines = ::ConfigTemplates::Repositories::Engines.new
       @validators = ::ConfigTemplates::Repositories::Validators.new
+    end
+
+    def stage=(stage)
+      if stages.include? stage
+        @stage = stage
+      else
+        raise ConfigTemplates::Errors::StageNotFound, stage.to_s
+      end
     end
 
     def output(name)

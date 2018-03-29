@@ -1,10 +1,10 @@
 module Mocks
   module Outputs
     class Test
-      attr_reader :result
+      attr_accessor :result
 
       def print(renderer)
-        @result = renderer.result
+        @result = renderer.render
       end
     end
   end

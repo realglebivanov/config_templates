@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    templates (0.0.1)
+    config_templates (0.0.1)
       bundler
       rake
       rspec
@@ -29,7 +29,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  templates!
+  config_templates!
 
 BUNDLED WITH
    1.16.1

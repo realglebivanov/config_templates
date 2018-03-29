@@ -6,19 +6,20 @@ module ConfigTemplates::Models
     end
 
     def select(expression)
-      @context.criteria ::ConfigTemplates::Criteria::Name.new(expression, true)
+      @context.criteria ::ConfigTemplates::Criteria::Name.new expression
       self
     end
 
     def reject(expression)
-      @context.criteria ::ConfigTemplates::Criteria::Name.new(expression, false)
+      @context.criteria ::ConfigTemplates::Criteria::Name.new expression, false
       self
     end
 
     def send_to(output_name)
       @context.renderers.each do |renderer|
         renderer.validate!
-        @config.output(output_name).print renderer
+        output = @config.output output_name
+        output.print renderer
       end
     end
   end

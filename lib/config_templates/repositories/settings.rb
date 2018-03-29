@@ -1,7 +1,7 @@
 module ConfigTemplates::Repositories
   class Settings
     def initialize
-      @locator = ::ConfigTemplates::Locator.new
+      @locator = ::ConfigTemplates::FileLocator.new
     end
 
     def find_all

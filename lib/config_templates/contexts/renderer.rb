@@ -11,11 +11,23 @@ module ConfigTemplates::Contexts
       default
     end
 
+    def method_missing(method_name)
+      stage_request = method_name[-1] == '?'
+      stage = method_name[0..-2] if stage_request
+      stage.nil? ? super : stage?(stage)
+    end
+
+    def respond_to_missing?(method_name)
+      method_name[-1] == '?' || super
+    end
+
+    private
+
     def stage?(stage)
-      if @config.stages.include? stage
+      if @config.stages.include?(stage.to_sym)
         @config.stage == stage.to_sym
       else
-        raise ::ConfigTemplates::Errors::StageNotFound, stage.to_s
+        raise ::ConfigTemplates::Errors::StageNotFound, stage
       end
     end
   end

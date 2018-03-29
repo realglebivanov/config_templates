@@ -11,7 +11,7 @@ module ConfigTemplates::Repositories
 
     def find_by_file_name(file_name)
       ::ConfigTemplates::Validators::Composite.new(
-        *find_all_by(::ConfigTemplates::Criteria::Name.new(file_name, true))
+        *find_all_by(::ConfigTemplates::Criteria::Name.new(file_name))
       )
     end
 

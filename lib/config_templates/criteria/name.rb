@@ -1,12 +1,12 @@
 module ConfigTemplates::Criteria
   class Name
-    def initialize(pattern, compare)
+    def initialize(pattern, override = true)
       @pattern = pattern
-      @compare = compare
+      @override = override
     end
 
     def matches?(target)
-      @pattern.match?(target) == @compare
+      @pattern.match?(target) && @override
     end
   end
 end

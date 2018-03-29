@@ -1,7 +1,7 @@
 module ConfigTemplates
   class Config
     attr_accessor :templates_path, :destination_path
-    attr_accessor :settings_path, :settings_file
+    attr_accessor :settings_path, :settings_file_basename
     attr_accessor :stage, :stages
 
     def initialize

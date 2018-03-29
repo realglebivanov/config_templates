@@ -7,20 +7,23 @@ RSpec.describe ::ConfigTemplates do
     ::ConfigTemplates.configure { |config| config.outputs test: @output_mock }
   end
 
-  before(:all) do
-    ::ConfigTemplates.configure do |config|
-      config.templates_path = 'spec/fixtures/src'
-      config.settings_path = 'spec/fixtures/settings'
-      config.destination_path = 'spec/fixtures/dest'
-      config.settings_file = 'settings'
-      config.stage = :production
-      config.stages = %i[production prerel staging]
-    end
-  end
+  before(:each) { @output_mock.result = nil }
 
-  it 'Renders a template using configs and environment metadata' do
+  it 'renders selected template using configs and environment metadata' do
     compilation = ::ConfigTemplates::Models::Compilation.new
     compilation.select(/.*/).send_to(:test)
+    expect(@output_mock.result.strip).to eq('true')
+  end
+
+  it 'doesnt render not selected template' do
+    compilation = ::ConfigTemplates::Models::Compilation.new
+    compilation.reject(/.*/).send_to(:test)
+    expect(@output_mock.result).to be_nil
+  end
+
+  it 'renders without explicitly selected templates' do
+    compilation = ::ConfigTemplates::Models::Compilation.new
+    compilation.send_to(:test)
     expect(@output_mock.result.strip).to eq('true')
   end
 end

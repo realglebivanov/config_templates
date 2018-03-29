@@ -8,11 +8,11 @@ module ConfigTemplates::Models
     end
 
     def validate!
-      @template.validator.validate!
+      @template.validator.validate! render
     end
 
-    def result
-      @result ||= @template.engine.evaluate @template.content, @context
+    def render
+      @render ||= @template.engine.evaluate @template.content, @context
     end
   end
 end

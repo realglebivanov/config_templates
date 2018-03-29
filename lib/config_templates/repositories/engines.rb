@@ -10,7 +10,7 @@ module ConfigTemplates::Repositories
     end
 
     def find_by_extension(extension)
-      find_by ::ConfigTemplates::Criteria::Name.new extension, true
+      find_by ::ConfigTemplates::Criteria::Name.new extension
     end
 
     def find_by(criteria)

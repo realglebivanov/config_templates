@@ -4,8 +4,8 @@ module ConfigTemplates::Validators
       @validators = validators
     end
 
-    def validate!
-      @validators.each(&:validate!)
+    def validate!(result)
+      @validators.each { |validator| validator.validate! result }
     end
   end
 end

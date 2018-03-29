@@ -4,9 +4,9 @@ module ConfigTemplates::Criteria
       @criteria = criteria
     end
 
-    def matches?(collection)
+    def matches?(target)
       @criteria.inject(true) do |result, criteria|
-        result && criteria.matches?(collection)
+        result && criteria.matches?(target)
       end
     end
   end

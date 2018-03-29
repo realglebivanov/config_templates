@@ -14,10 +14,10 @@ module ConfigTemplates::Models
     end
 
     def destination
-      ::File.join(
+      engine.prepare_file_name ::File.join(
         @config.destination_path,
         @config.stage.to_s,
-        @path.sub(@config.templates_path, '').sub(extension, '')
+        @path.sub(@config.templates_path, '')
       )
     end
 

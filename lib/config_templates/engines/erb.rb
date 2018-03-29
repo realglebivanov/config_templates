@@ -3,5 +3,9 @@ module ConfigTemplates::Engines
     def evaluate(template, context)
       ::ERB.new(template).result(context.instance_eval { binding })
     end
+
+    def prepare_file_name(file_name)
+      file_name.sub '.erb', ''
+    end
   end
 end

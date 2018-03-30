@@ -11,6 +11,10 @@ module ConfigTemplates::Contexts
       default
     end
 
+    def stage
+      @config.stage
+    end
+
     def method_missing(method_name)
       stage_request = method_name[-1] == '?'
       stage = method_name[0..-2] if stage_request

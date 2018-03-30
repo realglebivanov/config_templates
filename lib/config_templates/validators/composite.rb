@@ -1,11 +1,13 @@
 module ConfigTemplates::Validators
   class Composite
-    def initialize(*validators)
+    def initialize(validators)
       @validators = validators
     end
 
-    def validate!(result)
-      @validators.each { |validator| validator.validate! result }
+    def valid?(view)
+      @validators.inject(true) do |result, validator|
+        result && validator.valid?(view)
+      end
     end
   end
 end

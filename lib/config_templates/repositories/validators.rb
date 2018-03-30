@@ -1,7 +1,6 @@
 module ConfigTemplates::Repositories
   class Validators
     def initialize
-      @default = ::ConfigTemplates::Validators::Composite.new
       @validators = {}
     end
 
@@ -11,7 +10,7 @@ module ConfigTemplates::Repositories
 
     def find_by_file_name(file_name)
       ::ConfigTemplates::Validators::Composite.new(
-        *find_all_by(::ConfigTemplates::Criteria::Name.new(file_name))
+        find_all_by ::ConfigTemplates::Criteria::Name.new file_name
       )
     end
 

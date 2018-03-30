@@ -1,5 +1,7 @@
 module ConfigTemplates::Models
   class Template
+    attr_reader :path
+
     def initialize(path)
       @path = path
       @config = ::ConfigTemplates.config

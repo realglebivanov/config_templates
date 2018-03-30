@@ -8,7 +8,9 @@ module ConfigTemplates::Models
     end
 
     def validate!
-      @template.validator.validate! render
+      unless @template.validator.valid? render
+        raise ::ConfigTemplates::Errors::InvalidTemplate, @template.path
+      end
     end
 
     def render

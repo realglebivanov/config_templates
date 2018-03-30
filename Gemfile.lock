@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    config_templates (0.0.1)
+    config_templates (0.0.4)
       bundler
       rake
       rspec

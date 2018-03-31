@@ -1,3 +1,3 @@
 module ConfigTemplates
-  VERSION = '0.0.9'.freeze
+  VERSION = '1.0.0'.freeze
 end

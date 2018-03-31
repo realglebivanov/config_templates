@@ -16,10 +16,10 @@ module ConfigTemplates::Models
     end
 
     def send_to(output_name)
-      @context.renderers.each do |renderer|
-        renderer.validate!
+      @context.renderers.tap do |renderers|
         output = @config.output output_name
-        output.print renderer
+        renderers.each &:validate!
+        renderers.each { |renderer| output.print renderer }
       end
     end
   end

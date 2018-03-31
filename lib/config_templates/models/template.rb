@@ -16,7 +16,7 @@ module ConfigTemplates::Models
     end
 
     def destination
-      engine.prepare_file_name ::File.join(
+      engine.output_file_name ::File.join(
         @config.destination_path,
         @config.stage.to_s,
         @path.sub(@config.templates_path, '')

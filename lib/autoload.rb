@@ -12,4 +12,6 @@ module ConfigTemplates
   module Validators; end
 end
 
-Dir[File.join(File.dirname(__FILE__), 'config_templates', '**', '*.rb')].each { |path| require path }
+Dir[
+  File.join(File.dirname(__FILE__), 'config_templates', '**', '*.rb')
+].each { |path| require path }

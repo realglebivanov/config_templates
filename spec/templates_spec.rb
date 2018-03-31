@@ -21,9 +21,9 @@ RSpec.describe ::ConfigTemplates do
     expect(@output_mock.result).to be_nil
   end
 
-  it 'renders without explicitly selected templates' do
+  it 'doesnt render anything without explicitly selected templates' do
     compilation = ::ConfigTemplates::Models::Compilation.new
     compilation.send_to(:test)
-    expect(@output_mock.result.strip).to eq('true')
+    expect(@output_mock.result).to be_nil
   end
 end

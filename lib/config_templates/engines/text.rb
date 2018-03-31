@@ -4,7 +4,7 @@ module ConfigTemplates::Engines
       template
     end
 
-    def prepare_file_name(file_name)
+    def output_file_name(file_name)
       file_name
     end
   end

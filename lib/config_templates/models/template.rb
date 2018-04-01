@@ -2,9 +2,9 @@ module ConfigTemplates::Models
   class Template
     attr_reader :path
 
-    def initialize(path)
+    def initialize(path, config)
       @path = path
-      @config = ::ConfigTemplates.config
+      @config = config
     end
 
     def content
@@ -16,19 +16,7 @@ module ConfigTemplates::Models
     end
 
     def destination
-      engine.output_file_name ::File.join(
-        @config.destination_path,
-        @config.stage.to_s,
-        @path.sub(@config.templates_path, '')
-      )
-    end
-
-    def validator
-      @config.validator @path
-    end
-
-    def engine
-      @config.engine extension
+      ::File.join @config.destination_path, @config.stage.to_s, @path.sub(@config.templates_path, '')
     end
   end
 end

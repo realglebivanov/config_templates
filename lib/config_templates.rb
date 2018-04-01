@@ -1,13 +1,16 @@
-require_relative 'autoload'
+require 'erb'
+require 'yaml'
+require 'fileutils'
 
 module ConfigTemplates
-  class << self
-    def configure
-      yield config
-    end
+  def self.configure
+    yield container.resolve(:config)
+  end
 
-    def config
-      @config ||= Config.new
-    end
+  def self.container
+    @container ||= ::Dry::Container.new
   end
 end
+
+require_relative 'ioc_config'
+require_relative 'autoload'

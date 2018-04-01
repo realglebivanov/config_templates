@@ -1,8 +1,10 @@
 module ConfigTemplates::Contexts
-  class Renderer
-    def initialize(settings)
+  class Rendering
+    include ::ConfigTemplates::Inject['repositories.settings', 'config']
+
+    def initialize(settings, config)
       @settings = settings
-      @config = ::ConfigTemplates.config
+      @config = config
     end
 
     def param(path, default = nil)

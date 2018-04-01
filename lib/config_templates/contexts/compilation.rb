@@ -1,8 +1,15 @@
 module ConfigTemplates::Contexts
   class Compilation
-    def initialize
-      @templates = ::ConfigTemplates::Repositories::Templates.new
-      @settings = ::ConfigTemplates::Repositories::Settings.new
+    include ConfigTemplates::Inject[
+      'repositories.templates',
+      'repositories.validators',
+      'repositories.engines'
+    ]
+
+    def initialize(templates, validators, engines)
+      @templates = templates
+      @validators = validators
+      @engines = engines
       @criteria = ::ConfigTemplates::Criteria::Composite.new
     end
 
@@ -10,16 +17,16 @@ module ConfigTemplates::Contexts
       @criteria = ::ConfigTemplates::Criteria::Composite.new @criteria, criteria
     end
 
-    def renderers
+    def components
       @templates.find_all_by(@criteria).map do |template|
-        ::ConfigTemplates::Models::Renderer.new template, renderer_context
+        ::ConfigTemplates::Models::Component.new template, context, @validators, @engines
       end
     end
 
     private
 
-    def renderer_context
-      ::ConfigTemplates::Contexts::Renderer.new @settings
+    def context
+      ::ConfigTemplates::Contexts::Rendering.new
     end
   end
 end

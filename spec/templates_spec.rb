@@ -11,7 +11,7 @@ RSpec.describe ::ConfigTemplates do
 
   it 'renders selected template using configs and environment metadata' do
     compilation = ::ConfigTemplates::Models::Compilation.new
-    compilation.reject(/.*/).select('kapacitor/config.erb').send_to(:test)
+    compilation.reject(/.*/).select(Regexp.new 'kapacitor/config.erb').send_to(:test)
     expect(@output_mock.result.strip).to eq('true')
   end
 

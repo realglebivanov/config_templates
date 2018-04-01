@@ -1,12 +1,9 @@
-require 'erb'
-require 'yaml'
-require 'fileutils'
-
 module ConfigTemplates
   module Contexts; end
   module Criteria; end
   module Engines; end
-  module Models; end
+  module Filesystem; end
+  module Templates; end
   module Outputs; end
   module Repositories; end
   module Validators; end

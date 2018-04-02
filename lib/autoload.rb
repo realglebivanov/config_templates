@@ -3,7 +3,7 @@ module ConfigTemplates
   module Criteria; end
   module Engines; end
   module Filesystem; end
-  module Templates; end
+  module Models; end
   module Outputs; end
   module Repositories; end
   module Validators; end

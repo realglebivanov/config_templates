@@ -3,8 +3,8 @@ module Mocks
     class Test
       attr_accessor :result
 
-      def print(renderer)
-        @result = renderer.render
+      def print(component)
+        @result = component.render
       end
     end
   end

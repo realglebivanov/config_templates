@@ -15,8 +15,8 @@ module ConfigTemplates::Collections
         .map { |_, component| component }
     end
 
-    def find_by_path!(path)
-      find_by! ConfigTemplates::Criteria::Path.new path
+    def find_by_path!(path, relative_to = nil)
+      find_by! ConfigTemplates::Criteria::Path.new path, relative_to
     rescue
       raise ConfigTemplates::Errors::ComponentNotFound, path
     end

@@ -1,7 +1,7 @@
 require 'config_templates'
 require 'spec_helper'
 
-RSpec.describe ::ConfigTemplates do
+RSpec.describe ::ConfigTemplates::Models::Compilation do
   before(:all) do
     @output = ::Mocks::Outputs::Test.new
     @validator = ::Mocks::Validators::Test.new

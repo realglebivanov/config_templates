@@ -6,7 +6,7 @@ module ConfigTemplates::Contexts
       'config'
     ]
 
-    attr_accessor :components
+    attr_accessor :components, :component
 
     def initialize(extensions, settings, config)
       @extensions = extensions
@@ -29,9 +29,9 @@ module ConfigTemplates::Contexts
     end
 
     def method_missing(method_name, *args, &block)
-      extension_class = @extensions.find_by_name method_name
+      extension_class = @extensions.find_by_name(method_name) || super
       invocation = ::ConfigTemplates::Extensions::Invocation.new method_name, args, block
-      extension_class.new.call(self, invocation) rescue super
+      extension_class.new.call(self, invocation)
     end
 
     def respond_to_missing?(method_name)

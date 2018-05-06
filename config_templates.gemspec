@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.version     = ConfigTemplates::VERSION
   spec.authors     = ['g.ivanov']
   spec.email       = ['g.ivanov@fun-box.ru']
-  spec.summary     = 'config_templates'
-  spec.description = spec.summary
+  spec.summary     = spec.name
+  spec.description = spec.name
 
   spec.files = Dir['lib/**/*']
   spec.test_files = Dir['spec/**/*']

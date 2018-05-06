@@ -10,11 +10,12 @@ require 'dry-container'
     register(:locator, memoize: true) { ::ConfigTemplates::Filesystem::Locator.new }
   end
 
-  container.namespace :repositories do
-    register(:engines, memoize: true) { ::ConfigTemplates::Repositories::Engines.new }
-    register(:outputs, memoize: true) { ::ConfigTemplates::Repositories::Outputs.new }
-    register(:settings, memoize: true) { ::ConfigTemplates::Repositories::Settings.new }
-    register(:templates, memoize: true) { ::ConfigTemplates::Repositories::Templates.new }
-    register(:validators, memoize: true) { ::ConfigTemplates::Repositories::Validators.new }
+  container.namespace :collections do
+    register(:engines, memoize: true) { ::ConfigTemplates::Collections::Engines.new }
+    register(:outputs, memoize: true) { ::ConfigTemplates::Collections::Outputs.new }
+    register(:settings, memoize: true) { ::ConfigTemplates::Collections::Settings.new }
+    register(:templates, memoize: true) { ::ConfigTemplates::Collections::Templates.new }
+    register(:validators, memoize: true) { ::ConfigTemplates::Collections::Validators.new }
+    register(:extensions, memoize: true) { ::ConfigTemplates::Collections::Extensions.new }
   end
 end

@@ -1,9 +1,9 @@
 module ConfigTemplates::Contexts
   class Compilation
     include ConfigTemplates::Inject[
-      'repositories.templates',
-      'repositories.validators',
-      'repositories.engines'
+      'collections.templates',
+      'collections.validators',
+      'collections.engines'
     ]
 
     def initialize(templates, validators, engines)
@@ -18,15 +18,19 @@ module ConfigTemplates::Contexts
     end
 
     def components
-      @templates.find_all_by(@criteria).map do |template|
-        ::ConfigTemplates::Models::Component.new template, context, @validators, @engines
+      ::ConfigTemplates::Collections::Components.new(@criteria).tap do |collection|
+        context = ::ConfigTemplates::Contexts::Rendering.new
+        context.components = collection
+        @templates.find_all.each { |template| collection << component(template, context) }
       end
     end
 
     private
 
-    def context
-      ::ConfigTemplates::Contexts::Rendering.new
+    def component(template, context)
+      validator = @validators.find_by_file_name template.source_path
+      engine = @engines.find_by_extension template.extension
+      ::ConfigTemplates::Models::Component.new template, context, validator, engine
     end
   end
 end

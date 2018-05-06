@@ -1,4 +1,4 @@
-module ConfigTemplates::Repositories
+module ConfigTemplates::Collections
   class Outputs
     def initialize
       @default = :stdout

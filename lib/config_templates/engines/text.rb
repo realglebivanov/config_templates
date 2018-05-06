@@ -4,8 +4,8 @@ module ConfigTemplates::Engines
       template
     end
 
-    def output_file_name(file_name)
-      file_name
+    def destination_path(path)
+      path
     end
   end
 end

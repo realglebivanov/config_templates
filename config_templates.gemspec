@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/**/*']
 
   spec.add_dependency 'bundler'
+  spec.add_dependency 'deep_merge'
   spec.add_dependency 'dry-auto_inject'
   spec.add_dependency 'dry-container'
   spec.add_dependency 'rake'

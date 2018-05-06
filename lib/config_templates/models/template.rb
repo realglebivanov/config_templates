@@ -1,22 +1,22 @@
 module ConfigTemplates::Models
   class Template
-    attr_reader :path
+    attr_reader :source_path
 
-    def initialize(path, config)
-      @path = path
+    def initialize(source_path, config)
+      @source_path = source_path
       @config = config
     end
 
     def content
-      @content ||= ::File.read @path
+      @content ||= ::File.read @source_path
     end
 
     def extension
-      ::File.extname @path
+      ::File.extname @source_path
     end
 
-    def destination
-      ::File.join @config.destination_path, @config.stage.to_s, @path.sub(@config.templates_path, '')
+    def destination_path
+      ::File.join @config.destination_path, @config.stage.to_s, @source_path.sub(@config.templates_path, '')
     end
   end
 end

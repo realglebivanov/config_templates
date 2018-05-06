@@ -5,8 +5,9 @@ module ConfigTemplates
   module Filesystem; end
   module Models; end
   module Outputs; end
-  module Repositories; end
+  module Collections; end
   module Validators; end
+  module Extensions; end
 end
 
 Dir[

@@ -4,9 +4,9 @@ module ConfigTemplates::Criteria
       @criteria = criteria
     end
 
-    def matches?(target)
-      @criteria.inject(false) do |result, criteria|
-        result || criteria.matches?(target)
+    def filter(hash)
+      @criteria.reduce({}) do |result, criteria|
+        result.merge criteria.filter hash
       end
     end
   end

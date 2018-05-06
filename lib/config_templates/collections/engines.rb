@@ -1,4 +1,4 @@
-module ConfigTemplates::Repositories
+module ConfigTemplates::Collections
   class Engines
     def initialize
       @default = ::ConfigTemplates::Engines::Text.new
@@ -14,7 +14,7 @@ module ConfigTemplates::Repositories
     end
 
     def find_by(criteria)
-      @engines.select { |(k, _)| criteria.matches?(k) }.first.last
+      criteria.filter(@engines).first.last
     rescue
       @default
     end

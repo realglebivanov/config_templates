@@ -1,11 +1,11 @@
 module ConfigTemplates::Engines
   class ERB
     def evaluate(template, context)
-      ::ERB.new(template).result(context.instance_eval { binding })
+      ::ERB.new(template).result context.binding
     end
 
-    def output_file_name(file_name)
-      file_name.sub '.erb', ''
+    def destination_path(path)
+      path.sub '.erb', ''
     end
   end
 end

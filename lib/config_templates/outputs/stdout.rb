@@ -1,6 +1,6 @@
 module ConfigTemplates::Outputs
   class Stdout
-    def print(component)
+    def write(component)
       ::Kernel.puts component.render
     end
   end

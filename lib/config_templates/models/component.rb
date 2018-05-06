@@ -1,34 +1,37 @@
 module ConfigTemplates::Models
   class Component
-    def initialize(template, context, validators, engines)
+    def initialize(template, context, validator, engine)
       @template = template
       @context = context
-      @validators = validators
-      @engines = engines
+      @validator = validator
+      @engine = engine
+      @child = false
     end
 
-    def destination
-      engine.output_file_name @template.destination
+    def child?
+      @child
+    end
+
+    def child!
+      @child = true
+    end
+
+    def source_path
+      @template.source_path
+    end
+
+    def destination_path
+      @engine.destination_path @template.destination_path
     end
 
     def validate!
-      unless validator.valid? render
-        raise ::ConfigTemplates::Errors::InvalidTemplate, @template.path
+      unless @validator.valid? render
+        raise ::ConfigTemplates::Errors::InvalidTemplate, source_path
       end
     end
 
     def render
-      @render ||= engine.evaluate @template.content, @context
-    end
-
-    private
-
-    def validator
-      @validator ||= @validators.find_by_file_name @template.path
-    end
-
-    def engine
-      @engine ||= @engines.find_by_extension @template.extension
+      @render ||= @engine.evaluate @template.content, @context
     end
   end
 end

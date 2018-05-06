@@ -1,6 +1,6 @@
 module ConfigTemplates::Models
   class Compilation
-    include ::ConfigTemplates::Inject['repositories.outputs']
+    include ::ConfigTemplates::Inject['collections.outputs']
 
     def initialize(outputs)
       @outputs = outputs
@@ -18,10 +18,11 @@ module ConfigTemplates::Models
     end
 
     def send_to(output_name)
-      @context.components.tap do |components|
-        output = outputs.find_by_name output_name
-        components.each &:validate!
-        components.each { |component| output.print component }
+      @context.components.tap do |collection|
+        collection.find_all.each &:render
+        collection.find_all.each &:validate!
+        output = @outputs.find_by_name output_name
+        collection.find_all.each { |component| output.write component }
       end
     end
   end

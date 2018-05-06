@@ -1,14 +1,25 @@
 module ConfigTemplates::Contexts
   class Rendering
-    include ::ConfigTemplates::Inject['repositories.settings', 'config']
+    include ::ConfigTemplates::Inject[
+      'collections.extensions',
+      'collections.settings',
+      'config'
+    ]
 
-    def initialize(settings, config)
+    attr_accessor :components
+
+    def initialize(extensions, settings, config)
+      @extensions = extensions
       @settings = settings
       @config = config
     end
 
-    def param(path, default = nil)
-      path.split('.').inject(@settings.find_all) { |value, current| value[current] }
+    def binding
+      ::Kernel.binding
+    end
+
+    def param(xpath, default = nil)
+      xpath.split('.').reduce(@settings.find_all) { |value, key| value.fetch key }
     rescue
       default
     end
@@ -17,24 +28,14 @@ module ConfigTemplates::Contexts
       @config.stage
     end
 
-    def method_missing(method_name)
-      stage_request = method_name[-1] == '?'
-      stage = method_name[0..-2] if stage_request
-      stage.nil? ? super : stage?(stage)
+    def method_missing(method_name, *args, &block)
+      extension_class = @extensions.find_by_name method_name
+      invocation = ::ConfigTemplates::Extensions::Invocation.new method_name, args, block
+      extension_class.new.call(self, invocation) rescue super
     end
 
     def respond_to_missing?(method_name)
-      method_name[-1] == '?' || super
-    end
-
-    private
-
-    def stage?(stage)
-      if @config.stages.include?(stage.to_sym)
-        @config.stage == stage.to_sym
-      else
-        raise ::ConfigTemplates::Errors::StageNotFound, stage
-      end
+      @extensions.exists_with_name?(method_name) || super
     end
   end
 end

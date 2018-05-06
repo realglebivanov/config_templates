@@ -1,4 +1,5 @@
 require_relative './mocks/outputs/test'
+require_relative './mocks/validators/test'
 
 RSpec.configure do |spec|
   spec.before(:all) do

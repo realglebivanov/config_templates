@@ -5,8 +5,8 @@ module ConfigTemplates::Criteria
       @straight = straight
     end
 
-    def matches?(expression)
-      @pattern.match?(cast expression) && @straight
+    def filter(hash)
+      hash.select { |pattern| @pattern.match?(cast pattern) && @straight }
     end
 
     def cast(expression)

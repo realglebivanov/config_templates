@@ -2,6 +2,7 @@ require 'erb'
 require 'yaml'
 require 'fileutils'
 require 'deep_merge/core'
+require 'pathname'
 
 module ConfigTemplates
   def self.configure

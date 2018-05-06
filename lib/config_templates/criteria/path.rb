@@ -24,7 +24,11 @@ module ConfigTemplates::Criteria
     end
 
     def relative_path
-      @relative_path ||= ::File.join(::File.dirname(@relative_to), @path)
+      @relative_path ||= begin
+        path = ::File.join ::File.dirname(@relative_to), @path
+        pathname = ::Pathname.new path
+        pathname.cleanpath.to_s
+      end
     end
   end
 end

@@ -2,8 +2,8 @@ module ConfigTemplates::Collections
   class Extensions
     def initialize
       @extensions = {
-        /^.+\?$/ => ::ConfigTemplates::Extensions::Stage,
-        'include' => ::ConfigTemplates::Extensions::Include
+        /^.+\?$/ => proc { |*args| ::ConfigTemplates::Extensions::Stage.new.call *args },
+        'include' => proc { |*args| ::ConfigTemplates::Extensions::Include.new.call *args }
       }
     end
 

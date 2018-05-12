@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    config_templates (1.1.3)
+    config_templates (1.1.5)
       bundler
       deep_merge
       dry-auto_inject

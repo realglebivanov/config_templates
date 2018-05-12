@@ -18,18 +18,22 @@ module ConfigTemplates::Contexts
     end
 
     def components
-      ::ConfigTemplates::Collections::Components.new(@criteria).tap do |collection|
-        @templates.find_all.each do |template|
-          context = ::ConfigTemplates::Contexts::Rendering.new
-          context.components = collection
-          collection << component(template, collection, context)
-        end
-      end
+      collection = ::ConfigTemplates::Collections::Components.new @criteria
+      add_components_to collection
+      collection
     end
 
     private
 
-    def component(template, components, context)
+    def add_components_to(collection)
+      @templates.find_all.each do |template|
+        context = ::ConfigTemplates::Contexts::Rendering.new
+        context.components = collection
+        collection << component(template, context)
+      end
+    end
+
+    def component(template, context)
       validator = @validators.find_by_file_name template.source_path
       engine = @engines.find_by_extension template.extension
       component = ::ConfigTemplates::Models::Component.new(template, context, validator, engine)

@@ -29,9 +29,9 @@ module ConfigTemplates::Contexts
     end
 
     def method_missing(method_name, *args, &block)
-      extension_class = @extensions.find_by_name(method_name) || super
+      extension = @extensions.find_by_name(method_name) || super
       invocation = ::ConfigTemplates::Extensions::Invocation.new method_name, args, block
-      extension_class.new.call(self, invocation)
+      extension.call self, invocation
     end
 
     def respond_to_missing?(method_name)
